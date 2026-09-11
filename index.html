@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香港經濟足跡與主要經濟活動 - 小學五年級常識互動問答</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlue: '#2563eb',
+                        brandAmber: '#f59e0b',
+                        brandGreen: '#10b981',
+                        brandPurple: '#8b5cf6',
+                        bgLight: '#f0f9ff'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Microsoft JhengHei', 'PingFang TC', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes bounce-short {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-bounce-short {
+            animation: bounce-short 0.5s ease-in-out infinite;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-amber-50 min-h-screen font-sans text-slate-800 flex flex-col justify-between selection:bg-amber-200">
+
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-blue-100 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="bg-brandBlue text-white p-2.5 rounded-2xl shadow-md shadow-blue-200">
+                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg md:text-xl text-slate-800 leading-tight">五年級常識科「香港的經濟」重溫練習</h1>
+                    <p class="text-xs text-blue-600 font-medium">香港主要經濟活動與經濟足跡</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button id="soundToggleBtn" onclick="toggleSound()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="開啟/關閉音效">
+                    <i id="soundIcon" class="fa-solid fa-volume-high"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-4 py-6 w-full flex-grow flex flex-col justify-center">
+
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen" class="glass-card rounded-3xl p-6 md:p-10 shadow-xl border border-white text-center max-w-2xl mx-auto my-auto">
+            <div class="inline-flex p-4 rounded-full bg-amber-100 text-amber-600 mb-4 text-4xl shadow-inner">
+                <i class="fa-solid fa-coins"></i>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 mb-3">五年級常識科「香港的經濟」重溫練習</h2>
+            <p class="text-slate-600 text-sm md:text-base mb-6 leading-relaxed">
+                歡迎來到小學五年級常識科互動問答！本測驗包含 <span class="font-bold text-blue-600">12 道精選題目</span>，涵蓋早期香港發展、四大支柱行業、物流挑戰、跨境基建及大灣區等內容。<br>
+                <span class="inline-block bg-amber-50 text-amber-800 text-xs font-semibold px-3 py-1 rounded-full mt-2 border border-amber-200">
+                    💡 提示：答錯時系統會給予溫馨提示，引導你思考正確答案！
+                </span>
+            </p>
+
+            <div class="grid grid-cols-2 gap-3 max-w-sm mx-auto mb-8 text-left text-xs font-medium text-slate-600">
+                <div class="flex items-center gap-2 p-2.5 bg-blue-50 rounded-xl">
+                    <i class="fa-solid fa-clock-rotate-left text-blue-500 text-base"></i> 早期歷史與轉口港
+                </div>
+                <div class="flex items-center gap-2 p-2.5 bg-emerald-50 rounded-xl">
+                    <i class="fa-solid fa-chart-pie text-emerald-500 text-base"></i> 四大主要行業
+                </div>
+                <div class="flex items-center gap-2 p-2.5 bg-purple-50 rounded-xl">
+                    <i class="fa-solid fa-truck-fast text-purple-500 text-base"></i> 物流與新興科技
+                </div>
+                <div class="flex items-center gap-2 p-2.5 bg-amber-50 rounded-xl">
+                    <i class="fa-solid fa-bridge-water text-amber-500 text-base"></i> 跨境基建與大灣區
+                </div>
+            </div>
+
+            <button onclick="startGame()" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-lg rounded-2xl shadow-lg shadow-blue-300 hover:shadow-xl hover:from-blue-700 hover:to-indigo-700 transition-all transform hover:-translate-y-0.5">
+                開始挑戰 <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+
+        <!-- Quiz Screen (Hidden by default) -->
+        <div id="quizScreen" class="hidden flex-col gap-5">
+            
+            <!-- Top Dashboard Stats -->
+            <div class="glass-card rounded-2xl p-4 shadow-md flex items-center justify-between border border-white">
+                <div class="flex items-center gap-3">
+                    <span id="questionCategory" class="px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700">
+                        分類標籤
+                    </span>
+                    <span class="text-xs text-slate-500 font-medium">
+                        第 <span id="currentQNum" class="font-bold text-slate-800 text-sm">1</span> / <span id="totalQNum">12</span> 題
+                    </span>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-1.5" title="得分">
+                        <i class="fa-solid fa-star text-amber-400"></i>
+                        <span id="scoreText" class="font-bold text-slate-700 text-sm">0 分</span>
+                    </div>
+                    <div class="flex items-center gap-1.5" title="當前嘗試次數">
+                        <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                        <span id="attemptsText" class="font-bold text-slate-700 text-xs">提示就緒</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden shadow-inner">
+                <div id="progressBar" class="bg-gradient-to-r from-blue-500 to-indigo-600 h-2.5 rounded-full transition-all duration-300" style="width: 8%"></div>
+            </div>
+
+            <!-- Main Question Box -->
+            <div class="glass-card rounded-3xl p-6 md:p-8 shadow-xl border border-white relative overflow-hidden">
+                
+                <h3 id="questionText" class="text-lg md:text-xl font-bold text-slate-800 mb-6 leading-relaxed">
+                    題目載入中...
+                </h3>
+
+                <!-- Options Area -->
+                <div id="optionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3.5 mb-6">
+                    <!-- Options injected dynamically -->
+                </div>
+
+                <!-- Hint Box (Hidden until incorrect guess) -->
+                <div id="hintBox" class="hidden bg-amber-50 border-2 border-amber-300 rounded-2xl p-4 mb-6 transition-all animate-bounce-short">
+                    <div class="flex items-start gap-3">
+                        <div class="text-amber-500 text-xl pt-0.5">
+                            <i class="fa-solid fa-compass"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-amber-900 text-sm mb-1">再想一想！小考官提示：</h4>
+                            <p id="hintText" class="text-xs md:text-sm text-amber-800 leading-relaxed">
+                                這裡會顯示輔助提示...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Explanation Card (Hidden until correct answer) -->
+                <div id="explanationBox" class="hidden bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-4 mb-6 transition-all">
+                    <div class="flex items-start gap-3">
+                        <div class="text-emerald-600 text-xl pt-0.5">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-emerald-900 text-sm mb-1">回答正確！知識解說：</h4>
+                            <p id="explanationText" class="text-xs md:text-sm text-emerald-800 leading-relaxed">
+                                這裡會顯示詳細解說...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="flex justify-end">
+                    <button id="nextBtn" onclick="nextQuestion()" disabled class="px-6 py-2.5 bg-slate-300 text-slate-500 cursor-not-allowed font-bold text-sm rounded-xl transition-all flex items-center gap-2">
+                        下一題 <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Results Screen (Hidden by default) -->
+        <div id="resultScreen" class="hidden glass-card rounded-3xl p-6 md:p-10 shadow-xl border border-white text-center max-w-2xl mx-auto my-auto">
+            <div id="resultBadge" class="inline-flex p-4 rounded-full bg-amber-100 text-amber-600 mb-4 text-4xl shadow-inner">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 mb-2">挑戰完成！</h2>
+            <p id="resultTitle" class="text-lg font-bold text-blue-600 mb-4">獲得稱號：香港經濟小專家</p>
+            
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 max-w-md mx-auto mb-6 flex justify-around">
+                <div>
+                    <span class="block text-xs text-slate-500 font-medium">總得分</span>
+                    <span id="finalScore" class="text-2xl font-extrabold text-amber-500">100</span>
+                </div>
+                <div class="border-r border-slate-200"></div>
+                <div>
+                    <span class="block text-xs text-slate-500 font-medium">答對題數</span>
+                    <span id="correctCount" class="text-2xl font-extrabold text-emerald-600">12 / 12</span>
+                </div>
+            </div>
+
+            <p id="resultFeedback" class="text-xs md:text-sm text-slate-600 mb-8 leading-relaxed max-w-md mx-auto">
+                你對香港的經濟歷史、四大行業以及近年發展有非常深入的了解！繼續保持學習熱情！
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button onclick="restartGame()" class="px-6 py-3 bg-brandBlue hover:bg-blue-700 text-white font-bold text-sm rounded-xl shadow-md transition-all">
+                    <i class="fa-solid fa-rotate-right mr-1.5"></i> 再玩一次
+                </button>
+                <button onclick="showReviewModal()" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl shadow-md transition-all">
+                    <i class="fa-solid fa-book-open mr-1.5"></i> 知識總溫習
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Revision Review Modal -->
+    <div id="reviewModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-slate-100">
+            <div class="px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-between">
+                <h3 class="font-bold text-base md:text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-book"></i> 常識科全課知識考點彙總
+                </h3>
+                <button onclick="closeReviewModal()" class="text-white/80 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div id="reviewContent" class="p-6 overflow-y-auto space-y-4 text-left">
+                <!-- Review content injected via JS -->
+            </div>
+
+            <div class="px-6 py-3 bg-slate-50 border-t border-slate-100 flex justify-end">
+                <button onclick="closeReviewModal()" class="px-5 py-2 bg-slate-800 text-white font-bold text-xs rounded-xl hover:bg-slate-700">
+                    關閉溫習頁面
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white/60 border-t border-slate-200 py-3 text-center text-xs text-slate-500">
+        <p>根據香港教育局小學五年級常識科課程 (單元一：香港的經濟) 設計</p>
+    </footer>
+
+    <script>
+        const questionsData = [
+            {
+                id: 1,
+                category: "📜 香港經濟足跡",
+                type: "single",
+                question: "在新界（如錦田、紅田村）包含「田」字的地名，以及旺角的「西洋菜南街」和「通菜街」，反映早期當地居民主要從事什麼經濟活動？",
+                options: [
+                    { id: "A", text: "採珠與打石採礦" },
+                    { id: "B", text: "耕種與種菜" },
+                    { id: "C", text: "金融與外匯買賣" },
+                    { id: "D", text: "紡織與製衣工業" }
+                ],
+                correct: "B",
+                hint: "「田」是用來種植農作物的土地，「西洋菜」和「通菜」都是日常常見的蔬菜，想想這與哪種傳統鄉村經濟活動有關？",
+                explanation: "新界帶「田」字的地名（如錦田、馬田村）及旺角早期街道名稱（西洋菜南街、通菜街），均反映早期居民主要以耕種和種菜為生。"
+            },
+            {
+                id: 2,
+                category: "📜 香港經濟足跡",
+                type: "single",
+                question: "香港開埠後逐漸發展成為世界重要的轉口港。以下哪一項**不是**當時促成轉口貿易發展的有利因素？",
+                options: [
+                    { id: "A", text: "地理位置優越，位於亞太地區中心" },
+                    { id: "B", text: "港口水深港闊，且終年不結冰" },
+                    { id: "C", text: "香港擁有豐富的金礦與鐵礦等天然礦產" },
+                    { id: "D", text: "政府實施自由港政策，不收關稅" }
+                ],
+                correct: "C",
+                hint: "香港實際上是一個『缺乏天然資源』的地方，但我們有優良的港口和自由貿易政策。再仔細看選項 C 的說法！",
+                explanation: "香港缺乏天然資源，發展轉口港主要憑藉優越的地理位置、水深港闊的天然港口、自由港政策（不徵收關稅）以及大量充沛的勞工。"
+            },
+            {
+                id: 3,
+                category: "📜 香港經濟足跡",
+                type: "single",
+                question: "1950年代，香港的轉口貿易大受打擊，倒逼經濟轉型發展工業。當時轉口貿易受阻的主要原因是什麼？",
+                options: [
+                    { id: "A", text: "韓戰爆發，聯合國對中國實施禁運" },
+                    { id: "B", text: "香港興建了大量主題公園" },
+                    { id: "C", text: "香港港口被嚴重污染無法停泊" },
+                    { id: "D", text: "外國商人全面停止購買香港貨品" }
+                ],
+                correct: "A",
+                hint: "1950至1953年間鄰近地區發生了一場戰爭，導致聯合國對中國實施貿易制裁（禁運），令香港貨品無法運往內地。",
+                explanation: "1950年代韓戰爆發，聯合國對中國實施禁運，導致香港轉口貿易受阻。幸得當時內地工業家帶來資金和技術，促使香港轉為發展工業。"
+            },
+            {
+                id: 4,
+                category: "📜 香港經濟足跡",
+                type: "single",
+                question: "1980年代，面對工資和租金上升，加上中國內地開放市場，香港廠商採取了什麼主要策略？",
+                options: [
+                    { id: "A", text: "放棄所有商業活動，只從事漁業" },
+                    { id: "B", text: "把工廠遷移至中國內地，並轉型發展服務業" },
+                    { id: "C", text: "全面禁止外國貨品進口香港" },
+                    { id: "D", text: "要求政府關閉所有工廠大廈" }
+                ],
+                correct: "B",
+                hint: "1978年中國內地實施改革開放，土地和勞工成本較低。香港廠商利用這個機會做出了『工廠北移』的決定。",
+                explanation: "1980年代香港本地工資與租金大幅上漲，廠商趁著內地開放市場將工廠北移。香港經濟隨之逐步轉型為以服務業及金融業為中心。"
+            },
+            {
+                id: 5,
+                category: "💼 四大主要行業",
+                type: "single",
+                question: "根據政府統計數據，在香港四大主要行業類別中，哪一個行業類別的**就業人數佔最多**？",
+                options: [
+                    { id: "A", text: "金融服務業" },
+                    { id: "B", text: "旅遊業" },
+                    { id: "C", text: "貿易及物流業" },
+                    { id: "D", text: "專業及工商業支援服務業" }
+                ],
+                correct: "C",
+                hint: "香港是國際貿易中心，有非常多的海運、空運、倉務及進出口貿易從業員。請看看棒形圖中最高的柱子！",
+                explanation: "數據顯示，「貿易及物流業」是香港就業人數最多的主要行業類別（例如2016年達70多萬人），為香港經濟提供重要支撐。"
+            },
+            {
+                id: 6,
+                category: "💼 四大主要行業",
+                type: "single",
+                question: "一位旅客來港旅遊，乘坐旅遊巴士、入住酒店、到茶樓午膳並去主題公園及商場購物。這直接讓哪些行業受惠？",
+                options: [
+                    { id: "A", text: "只有農業與採礦業" },
+                    { id: "B", text: "運輸、酒店、飲食、娛樂及零售業" },
+                    { id: "C", text: "重工業與鋼鐵製造業" },
+                    { id: "D", text: "漁業與建築打石業" }
+                ],
+                correct: "B",
+                hint: "旅遊業能夠帶動周邊相關產業的消費，包括交通（巴士）、住宿（酒店）、餐飲（茶樓）、遊樂（主題公園）和買東西（購物）。",
+                explanation: "旅遊業具備強大的帶動效應，能直接帶動香港零售業、飲食業、酒店業、運輸業及娛樂業的共同發展。"
+            },
+            {
+                id: 7,
+                category: "🚛 物流業與新興發展",
+                type: "single",
+                question: "香港物流業面對「用地不足、人手短缺及鄰近地區競爭激烈」的挑戰。物流業界採取了什麼方式來應對？",
+                options: [
+                    { id: "A", text: "應用科技，推動自動化以代替人力" },
+                    { id: "B", text: "完全取消所有倉儲與運送服務" },
+                    { id: "C", text: "減少使用電腦及通訊科技" },
+                    { id: "D", text: "改為使用傳統人力馬車運貨" }
+                ],
+                correct: "A",
+                hint: "面對人手短缺，現代企業通常會運用科技（如智能倉庫、自動化機械）來提升效率。",
+                explanation: "為維持競爭力，政府積極增加物流用地及大型建設（如增建機場跑道），而物流業界則推動自動化科技以彌補人手不足。"
+            },
+            {
+                id: 8,
+                category: "🚛 物流業與新興發展",
+                type: "single",
+                question: "香港科學園研發出幫助傷健人士上落樓梯的「必飛越障椅」。這反映近年香港積極發展什麼新興產業？",
+                options: [
+                    { id: "A", text: "傳統低技術加工工業" },
+                    { id: "B", text: "創新科技及創意產業" },
+                    { id: "C", text: "農業與園藝培育" },
+                    { id: "D", text: "石油開採與石化產業" }
+                ],
+                correct: "B",
+                hint: "科學園結合高科技、創意與解難能力，研發出複雜而具社會溫度的科技產品。",
+                explanation: "與1960年代製造的簡單消費品不同，近年香港積極發展「創新科技」及「創意產業」，提升產品的科技含量與國際競爭力。"
+            },
+            {
+                id: 9,
+                category: "🏗️ 跨境基建與大灣區",
+                type: "single",
+                question: "連接香港、珠海和澳門的大型跨海交通通道名稱是什麼？",
+                options: [
+                    { id: "A", text: "青馬大橋" },
+                    { id: "B", text: "港珠澳大橋" },
+                    { id: "C", text: "深圳灣公路大橋" },
+                    { id: "D", text: "跨海高鐵大橋" }
+                ],
+                correct: "B",
+                hint: "請看名稱中的三個地名縮寫：香港（港）、珠海（珠）、澳門（澳）！",
+                explanation: "港珠澳大橋是連接香港、珠海和澳門的跨海通道，極大地便利了三地的跨境交通、貿易與旅遊發展。"
+            },
+            {
+                id: 10,
+                category: "🏗️ 跨境基建與大灣區",
+                type: "single",
+                question: "「粵港澳大灣區」由廣州、深圳等9個內地城市，以及哪兩個特別行政區組成？",
+                options: [
+                    { id: "A", text: "香港特別行政區和澳門特別行政區" },
+                    { id: "B", text: "北京和上海" },
+                    { id: "C", text: "台北和高雄" },
+                    { id: "D", text: "海南和廈門" }
+                ],
+                correct: "A",
+                hint: "「粵」代表廣東省內城市，「港」和「澳」分別代表哪兩個特別行政區呢？",
+                explanation: "粵港澳大灣區由廣州、深圳、佛山、東莞、惠州、珠海、中山、江門、肇慶9市，以及香港、澳門兩個特別行政區組成。"
+            },
+            {
+                id: 11,
+                category: "🏗️ 跨境基建與大灣區",
+                type: "single",
+                question: "蓮塘/香園圍口岸是香港和深圳之間的第幾個陸路口岸？",
+                options: [
+                    { id: "A", text: "第一個" },
+                    { id: "B", text: "第三個" },
+                    { id: "C", text: "第七個" },
+                    { id: "D", text: "第十個" }
+                ],
+                correct: "C",
+                hint: "這是一個較新落成的口岸，大大加強了中港兩地的陸路物流能力，數字介乎 5 至 8 之間。",
+                explanation: "蓮塘/香園圍口岸是香港與深圳之間的第七個陸路口岸，有助便利跨境交通與貨運流轉。"
+            },
+            {
+                id: 12,
+                category: "💼 四大主要行業",
+                type: "boolean",
+                question: "判斷題：因為香港缺乏天然資源，所以大部分生活所需的食物、食水和原料都必須依靠進口貿易服務。",
+                options: [
+                    { id: "A", text: "正確 (True)" },
+                    { id: "B", text: "錯誤 (False)" }
+                ],
+                correct: "A",
+                hint: "想想看，如果沒有從內地及外國進口蔬菜、肉類和東江水，我們的日常生活會受到影響嗎？",
+                explanation: "正確！香港缺乏天然資源，必須通過進口貿易從世界各地輸入糧食、原料和水資源，以滿足市民的生活與經濟需要。"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answeredCorrectly = false;
+        let attemptsCount = 0;
+        let soundEnabled = true;
+        let userAnswersHistory = [];
+
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+        }
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            try {
+                initAudio();
+                const now = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'correct') {
+                    // Happy chord
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1); // E5
+                    osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.2); // G5
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                    osc.start(now);
+                    osc.stop(now + 0.4);
+                } else if (type === 'hint') {
+                    // Soft boing sound for wrong guess
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(300, now);
+                    osc.frequency.exponentialRampToValueAtTime(150, now + 0.25);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+                    osc.start(now);
+                    osc.stop(now + 0.25);
+                } else if (type === 'win') {
+                    // Fanfare
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(440, now);
+                    osc.frequency.setValueAtTime(554.37, now + 0.15);
+                    osc.frequency.setValueAtTime(659.25, now + 0.3);
+                    osc.frequency.setValueAtTime(880, now + 0.45);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.7);
+                    osc.start(now);
+                    osc.stop(now + 0.7);
+                }
+            } catch (e) {
+                console.log("Audio play deferred or unsupported");
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById("soundIcon");
+            if (soundEnabled) {
+                icon.className = "fa-solid fa-volume-high";
+            } else {
+                icon.className = "fa-solid fa-volume-xmark text-slate-400";
+            }
+        }
+
+        function startGame() {
+            document.getElementById("welcomeScreen").classList.add("hidden");
+            document.getElementById("resultScreen").classList.add("hidden");
+            document.getElementById("quizScreen").classList.remove("hidden");
+            document.getElementById("quizScreen").classList.add("flex");
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswersHistory = [];
+            document.getElementById("totalQNum").innerText = questionsData.length;
+            
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = questionsData[currentQuestionIndex];
+            answeredCorrectly = false;
+            attemptsCount = 0;
+
+            // UI elements update
+            document.getElementById("currentQNum").innerText = currentQuestionIndex + 1;
+            document.getElementById("questionCategory").innerText = q.category;
+            document.getElementById("questionText").innerText = q.question;
+            document.getElementById("scoreText").innerText = score + " 分";
+            document.getElementById("attemptsText").innerText = "提示就緒";
+
+            // Progress bar
+            const progressPercent = ((currentQuestionIndex + 1) / questionsData.length) * 100;
+            document.getElementById("progressBar").style.width = progressPercent + "%";
+
+            // Reset boxes
+            document.getElementById("hintBox").classList.add("hidden");
+            document.getElementById("explanationBox").classList.add("hidden");
+
+            // Disable Next button until correct
+            const nextBtn = document.getElementById("nextBtn");
+            nextBtn.disabled = true;
+            nextBtn.className = "px-6 py-2.5 bg-slate-200 text-slate-400 cursor-not-allowed font-bold text-sm rounded-xl transition-all flex items-center gap-2";
+
+            // Options container
+            const optionsContainer = document.getElementById("optionsContainer");
+            optionsContainer.innerHTML = "";
+
+            q.options.forEach(opt => {
+                const btn = document.createElement("button");
+                btn.id = `opt-${opt.id}`;
+                btn.onclick = () => handleOptionSelect(opt.id);
+                btn.className = "w-full text-left p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-blue-400 hover:bg-blue-50/50 transition-all font-medium text-slate-700 text-sm md:text-base flex items-center justify-between group shadow-sm";
+                
+                btn.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-xl bg-slate-100 text-slate-600 font-bold flex items-center justify-center text-xs group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                            ${opt.id}
+                        </span>
+                        <span>${opt.text}</span>
+                    </div>
+                    <i class="opt-icon fa-solid fa-circle text-slate-200 text-base opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                `;
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleOptionSelect(selectedId) {
+            if (answeredCorrectly) return;
+
+            const q = questionsData[currentQuestionIndex];
+            const selectedBtn = document.getElementById(`opt-${selectedId}`);
+
+            if (selectedId === q.correct) {
+                // Correct Answer
+                answeredCorrectly = true;
+                playSound('correct');
+
+                // Compute Score (First try = 10 pts, subsequent = 5 pts)
+                const pointsEarned = attemptsCount === 0 ? 10 : 5;
+                score += pointsEarned;
+                document.getElementById("scoreText").innerText = score + " 分";
+
+                // Save to history
+                userAnswersHistory.push({
+                    question: q.question,
+                    userAttempts: attemptsCount + 1,
+                    correctOption: q.options.find(o => o.id === q.correct).text,
+                    explanation: q.explanation
+                });
+
+                // Style correct button
+                selectedBtn.className = "w-full text-left p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-bold text-sm md:text-base flex items-center justify-between shadow-md";
+                const icon = selectedBtn.querySelector('.opt-icon');
+                if (icon) icon.className = "fa-solid fa-circle-check text-emerald-600 text-lg opacity-100";
+
+                // Disable all options
+                q.options.forEach(opt => {
+                    const b = document.getElementById(`opt-${opt.id}`);
+                    if (opt.id !== q.correct) {
+                        b.disabled = true;
+                        b.classList.add("opacity-50", "cursor-not-allowed");
+                    }
+                });
+
+                // Hide hint, show explanation
+                document.getElementById("hintBox").classList.add("hidden");
+                document.getElementById("explanationText").innerText = q.explanation;
+                document.getElementById("explanationBox").classList.remove("hidden");
+
+                // Unlock Next button
+                const nextBtn = document.getElementById("nextBtn");
+                nextBtn.disabled = false;
+                nextBtn.className = "px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm rounded-xl shadow-md transition-all flex items-center gap-2 transform hover:-translate-y-0.5";
+
+            } else {
+                // Incorrect Answer - DO NOT reveal right answer directly! Offer helpful guiding HINT instead.
+                attemptsCount++;
+                playSound('hint');
+
+                // Style wrong button
+                selectedBtn.disabled = true;
+                selectedBtn.className = "w-full text-left p-4 rounded-2xl border-2 border-red-200 bg-red-50 text-red-500 font-medium text-sm md:text-base flex items-center justify-between opacity-75 cursor-not-allowed";
+                const icon = selectedBtn.querySelector('.opt-icon');
+                if (icon) icon.className = "fa-solid fa-circle-xmark text-red-400 text-lg opacity-100";
+
+                // Update attempts indicator
+                document.getElementById("attemptsText").innerText = `已嘗試 ${attemptsCount} 次`;
+
+                // Show Hint box with pedagogical guidance
+                document.getElementById("hintText").innerText = q.hint;
+                document.getElementById("hintBox").classList.remove("hidden");
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questionsData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            playSound('win');
+            document.getElementById("quizScreen").classList.add("hidden");
+            document.getElementById("quizScreen").classList.remove("flex");
+            document.getElementById("resultScreen").classList.remove("hidden");
+
+            const maxScore = questionsData.length * 10;
+            document.getElementById("finalScore").innerText = score;
+            document.getElementById("correctCount").innerText = `${userAnswersHistory.length} / ${questionsData.length}`;
+
+            const badgeElem = document.getElementById("resultBadge");
+            const titleElem = document.getElementById("resultTitle");
+            const feedbackElem = document.getElementById("resultFeedback");
+
+            if (score >= 100) {
+                badgeElem.className = "inline-flex p-4 rounded-full bg-amber-100 text-amber-500 mb-4 text-4xl shadow-inner";
+                badgeElem.innerHTML = `<i class="fa-solid fa-trophy"></i>`;
+                titleElem.innerText = "獲得稱號：香港經濟狀元小博士 🏆";
+                feedbackElem.innerText = "太棒了！你對香港經濟發展足跡與四大支柱行業有極其優秀的掌握！常識科考試一定能拿高分！";
+            } else if (score >= 70) {
+                badgeElem.className = "inline-flex p-4 rounded-full bg-blue-100 text-blue-600 mb-4 text-4xl shadow-inner";
+                badgeElem.innerHTML = `<i class="fa-solid fa-medal"></i>`;
+                titleElem.innerText = "獲得稱號：香港經濟小專家 🌟";
+                feedbackElem.innerText = "表現非常好！你掌握了大部分核心概念，建議查看『全部答案與解說』複習答錯的題目。";
+            } else {
+                badgeElem.className = "inline-flex p-4 rounded-full bg-emerald-100 text-emerald-600 mb-4 text-4xl shadow-inner";
+                badgeElem.innerHTML = `<i class="fa-solid fa-seedling"></i>`;
+                titleElem.innerText = "獲得稱號：經濟小探索家 🌱";
+                feedbackElem.innerText = "加油！閱讀解說後再挑戰一次，相信你下次一定能獲得更高分！";
+            }
+        }
+
+        function restartGame() {
+            startGame();
+        }
+
+        function showReviewModal() {
+            const container = document.getElementById("reviewContent");
+            container.innerHTML = "";
+
+            questionsData.forEach((q, idx) => {
+                const card = document.createElement("div");
+                card.className = "p-4 rounded-2xl bg-slate-50 border border-slate-200 text-slate-800 text-sm";
+                card.innerHTML = `
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700">${q.category}</span>
+                        <span class="font-bold text-slate-500 text-xs">第 ${idx + 1} 題</span>
+                    </div>
+                    <p class="font-bold text-slate-800 mb-2">${q.question}</p>
+                    <p class="text-emerald-700 font-semibold mb-1">
+                        <i class="fa-solid fa-check-circle mr-1"></i> 正確答案：${q.options.find(o => o.id === q.correct).text}
+                    </p>
+                    <p class="text-xs text-slate-600 bg-white p-2.5 rounded-xl border border-slate-100 leading-relaxed">
+                        💡 <strong>知識解析：</strong>${q.explanation}
+                    </p>
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById("reviewModal").classList.remove("hidden");
+        }
+
+        function closeReviewModal() {
+            document.getElementById("reviewModal").classList.add("hidden");
+        }
+    </script>
+</body>
+</html>
